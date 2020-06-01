@@ -3,3 +3,13 @@
 ################################################################################
 
 /.vs/BookStore.CQRS
+/BookStore.CQRS.Application/bin/Debug/netstandard2.1
+/BookStore.CQRS.Application/obj
+/BookStore.CQRS.Domain/bin/Debug/netstandard2.1
+/BookStore.CQRS.Domain/obj
+/BookStore.CQRS.EntityFramework/bin/Debug/netstandard2.1
+/BookStore.CQRS.EntityFramework/obj
+/BookStore.CQRS.Infrastruct/bin/Debug/netstandard2.1
+/BookStore.CQRS.Infrastruct/obj
+/BookStore.CQRS.WebHost/bin/Debug/netcoreapp3.1
+/BookStore.CQRS.WebHost/obj
