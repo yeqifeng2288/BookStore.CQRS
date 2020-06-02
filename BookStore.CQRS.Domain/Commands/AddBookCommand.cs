@@ -10,7 +10,7 @@ namespace BookStore.CQRS.Commands
     /// </summary>
     public class AddBookCommand : BookCommand
     {
-        protected AddBookCommand(Guid id, string title, Guid authorId, string name, DateTime publishTIme, string description, string publishingHouse, decimal price)
+        public AddBookCommand(Guid id, string title, Guid authorId, string name, DateTime publishTIme, string description, string publishingHouse, decimal price)
         {
             Id = id;
             Title = title;
@@ -28,7 +28,8 @@ namespace BookStore.CQRS.Commands
         /// <returns>返回验证是否通过。</returns>
         public override bool IsValid()
         {
-            return new AddBookCommandValidation().Validate(this).IsValid;
+            ValidationResult = new AddBookCommandValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

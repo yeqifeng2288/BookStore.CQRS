@@ -1,4 +1,5 @@
 ﻿using BookStore.CQRS.Commands;
+using BookStore.CQRS.Events;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -7,19 +8,23 @@ using System.Threading.Tasks;
 
 namespace BookStore.CQRS.Bus
 {
-    internal class InMemoryBus : IMediatorHandler
+    public class InMemoryBus : IMediatorHandler
     {
-        private readonly Mediator _mediator;
+        private readonly IMediator _mediator;
 
-        public InMemoryBus(Mediator mediator)
+        public InMemoryBus(IMediator mediator)
         {
             _mediator = mediator;
         }
 
+        public Task RaiseEvent<T>(T @event) where T : Event
+        {
+            return _mediator.Publish(@event);
+        }
+
         public Task SendCommand<T>(T command) where T : Command
         {
-            _mediator.Send(command);
-            return Task.CompletedTask;
+            return _mediator.Send(command);
         }
     }
 }

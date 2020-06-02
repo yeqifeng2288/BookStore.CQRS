@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using BookStore.CQRS.Books;
 using BookStore.CQRS.Bus;
 using BookStore.CQRS.Commands;
 using BookStore.CQRS.ViewModel;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BookStore.CQRS.Services
@@ -15,11 +18,13 @@ namespace BookStore.CQRS.Services
         /// </summary>
         private readonly IMediatorHandler _bus;
         private readonly IMapper _mapper;
+        private readonly DbContext _dbContext;
 
-        public BookAppService(IMediatorHandler mediatorHandler, IMapper mapper)
+        public BookAppService(IMediatorHandler mediatorHandler, IMapper mapper, DbContext dbContext)
         {
             _bus = mediatorHandler;
             _mapper = mapper;
+            _dbContext = dbContext;
         }
 
         /// <summary>
@@ -30,6 +35,11 @@ namespace BookStore.CQRS.Services
         {
             var addBookCommand = _mapper.Map<AddBookCommand>(addBookViewModel);
             _bus.SendCommand(addBookCommand);
+        }
+
+        public IEnumerable<IndexBookViewModel> GetList()
+        {
+            return _mapper.Map<IEnumerable<IndexBookViewModel>>(_dbContext.Set<Book>().ToList());
         }
     }
 }

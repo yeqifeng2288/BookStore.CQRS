@@ -48,7 +48,7 @@ namespace BookStore.CQRS.Validations
         protected void ValidateDescription()
         {
             RuleFor(o => o.Description)
-                .Length(100, 10000).WithMessage("简述长度不能小于100，且不能大于10000");
+                .Length(10, 10000).WithMessage("简述长度不能小于100，且不能大于10000");
         }
 
         /// <summary>

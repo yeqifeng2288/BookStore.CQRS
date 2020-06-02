@@ -1,5 +1,6 @@
 ﻿using BookStore.CQRS.Bus;
 using BookStore.CQRS.Commands;
+using BookStore.CQRS.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,11 +23,12 @@ namespace BookStore.CQRS.CommandHandler
         /// <param name="command">命令。</param>
         protected void NotifyValidationErrors(Command command)
         {
-            var errors = new List<string>();
-            foreach (var item in command.ValidationResult.Errors)
+            foreach (var error in command.ValidationResult.Errors)
             {
                 //将错误信息提交到事件总线，派发出去
+                _bus.RaiseEvent(new Notification("", error.ErrorMessage));
             }
+
         }
     }
 }
